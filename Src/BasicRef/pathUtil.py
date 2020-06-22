@@ -34,6 +34,14 @@ class pathutil(object):
         # 替换斜杠
         self.rootPath = self.rootPath.replace("\\", "/")
 
+        # 被调函数名称
+        self.funcName = sys._getframe().f_code.co_name
+        # 被调函数所在行号
+        self.funcNo = sys._getframe().f_back.f_lineno
+
+        # 被调函数所在文件名称
+        self.funcFile = sys._getframe().f_code.co_filename
+
     def getPathFromResources(self, fileName):
         """按照文件名拼接资源文件路径"""
         filePath = "%s/resources/%s" % (self.rootPath, fileName)

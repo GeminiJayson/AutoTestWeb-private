@@ -33,6 +33,8 @@ class getAllCaseDeal(object):
                 self.initcasedealinfoDic[index]["预期结果类型"],
                 self.initcasedealinfoDic[index]["预期结果元素"],
                 self.initcasedealinfoDic[index]["结果数据"],]})
+        self.casedealinfoDic.pop("用例编号-步骤号")
+        self.casedealinfoDic.pop("-")
 
 
 if __name__ == '__main__':
