@@ -20,7 +20,6 @@ class getAllData(object):
         self.elementsinfo_sheetname = u'ElementsInfo'
         self.inputdata_sheetname = u'InputData'
         self.outputdata_sheetname = u'OutputData'
-
         self.initelementsinfoDic = []
         self.initinputdataDic = []
         self.initoutputdataDic = []
@@ -33,16 +32,68 @@ class getAllData(object):
         self.initelementsinfoDic = ExcelDeal.merge_cell(self.elementsinfo_sheetname)
         self.initinputdataDic = ExcelDeal.merge_cell(self.inputdata_sheetname)
         self.initoutputdataDic = ExcelDeal.merge_cell(self.outputdata_sheetname)
+        #处理列表类数据，特点：单标识符对应多组数据
+        index = 0
+        inputdatesameDic = {}
+        while index < len(self.initinputdataDic):
+            samelist = []
+            samevalue = []
+            samelist.append(index)
+            for index1 in range(index + 1, len(self.initinputdataDic)):
+                if self.initinputdataDic[index]["标识符"] == self.initinputdataDic[index1]["标识符"]:
+                    samelist.append(index1)
+
+            if len(samelist) != 1:
+                for same in samelist:
+                    samevalue.append(self.initinputdataDic[same]["输入数据"])
+                inputdatesameDic.update({self.initinputdataDic[samelist[-1]]["标识符"]: samevalue})
+            index = samelist[-1] + 1
+        index = 0
+        elementssameDic = {}
+        while index < len(self.initelementsinfoDic):
+            samelist = []
+            samevalue = []
+            samelist.append(index)
+            for index1 in range(index + 1, len(self.initelementsinfoDic)):
+                if self.initelementsinfoDic[index]["变量名称"] == self.initelementsinfoDic[index1]["变量名称"]:
+                    samelist.append(index1)
+
+            if len(samelist) != 1:
+                for same in samelist:
+                    samevalue.append([self.initelementsinfoDic[same]["定位方式"], self.initelementsinfoDic[same]["元素"]])
+                elementssameDic.update({self.initelementsinfoDic[samelist[-1]]["变量名称"]: samevalue})
+            index = samelist[-1] + 1
+        index = 0
+        outputdatasameDic = {}
+        while index < len(self.initoutputdataDic):
+            samelist = []
+            samevalue = []
+            samelist.append(index)
+            for index1 in range(index + 1, len(self.initoutputdataDic)):
+                if self.initoutputdataDic[index]["标识符"] == self.initoutputdataDic[index1]["标识符"]:
+                    samelist.append(index1)
+
+            if len(samelist) != 1:
+                for same in samelist:
+                    samevalue.append(self.initoutputdataDic[same]["输出数据"])
+                outputdatasameDic.update({self.initoutputdataDic[samelist[-1]]["标识符"]: samevalue})
+            index = samelist[-1] + 1
+
         for index in range(len(self.initelementsinfoDic)):
             self.elementsinfoDic.update({self.initelementsinfoDic[index]["变量名称"]: [
                 self.initelementsinfoDic[index]["定位方式"],
                 self.initelementsinfoDic[index]["元素"]]})
+        self.elementsinfoDic.update(elementssameDic)
+
         for index in range(len(self.initinputdataDic)):
             self.inputdataDic.update({self.initinputdataDic[index]["标识符"]:
-                self.initinputdataDic[index]["输入数据"]})
+                                          self.initinputdataDic[index]["输入数据"]})
+        self.inputdataDic.update(inputdatesameDic)
+
         for index in range(len(self.initoutputdataDic)):
             self.outputdataDic.update({self.initoutputdataDic[index]["标识符"]:
                 self.initoutputdataDic[index]["输出数据"]})
+        self.outputdataDic.update(outputdatasameDic)
 
     def checkIfExists(self, datatype, keyword):
         if datatype == "ElementsInfo":

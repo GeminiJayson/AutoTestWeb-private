@@ -18,7 +18,6 @@ from xlutils.copy import copy
 import Src.BasicRef.pathUtil as path
 
 # 定义常量
-
 module_path = path.pathutil().rootPath
 config_excel_path = '/Config/testCFG.xls'
 

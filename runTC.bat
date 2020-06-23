@@ -1,1 +1,0 @@
-python RunTc.py
