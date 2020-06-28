@@ -10,8 +10,8 @@
 --------------------|--------------|--------    
 2020/5/27 0027-19:02| GeminiJayson | V0.0.1        
 """
-import sys
 import os
+import sys
 
 
 class pathutil(object):
@@ -49,7 +49,7 @@ class pathutil(object):
 
 
 if __name__ == '__main__':
-  """测试"""
-  PathUtil = pathutil()
-  # path = PathUtil.getPathFromResources("context.ini")
-  print(PathUtil.rootPath)
+    """测试"""
+    PathUtil = pathutil()
+    # path = PathUtil.getPathFromResources("context.ini")
+    print(PathUtil.rootPath)

@@ -11,10 +11,11 @@
 2020/5/26 0026-20:35| GeminiJayson | V0.0.1        
 """
 
-import xlrd
 import os
+import xlrd
 import xlutils
 from xlutils.copy import copy
+
 import Src.BasicRef.pathUtil as path
 
 # 定义常量
@@ -36,7 +37,7 @@ def setOutCell(outSheet, col, row, value):
     def _getOutCell(outSheet, colIndex, rowIndex):
         """ HACK: Extract the internal xlwt cell representation. """
         row = outSheet._Worksheet__rows.get(rowIndex)
-        if not row : return None
+        if not row: return None
 
         cell = row._Row__cells.get(colIndex)
         return cell
@@ -52,7 +53,6 @@ def setOutCell(outSheet, col, row, value):
         newCell = _getOutCell(outSheet, col, row)
         if newCell:
             newCell.xf_idx = previousCell.xf_idx
-
 
 
 def writeSingleExcel(operation_sheetname, row, col, writevalue):
@@ -171,7 +171,7 @@ def list_dic(list1, list2):
 
     """
 
-    dic = dict(map(lambda x,y:[x,y], list1,list2))
+    dic = dict(map(lambda x, y: [x, y], list1, list2))
     return dic
 
 
@@ -205,18 +205,18 @@ def merge_cell(operation_sheetname):
             value_mg_cell = sheet_info.cell_value(rlow + 1, clow)
         else:
             value_mg_cell = sheet_info.cell_value(rlow, clow)
-        if rhigh-rlow == 1:
+        if rhigh - rlow == 1:
             # Merge transverse cells
             if rlow == 0:
-                for n in range(chigh-clow-1):
-                    merge[(rlow + 1, clow+n+1)] = value_mg_cell
+                for n in range(chigh - clow - 1):
+                    merge[(rlow + 1, clow + n + 1)] = value_mg_cell
             else:
-                for n in range(chigh-clow-1):
-                    merge[(rlow, clow+n+1)] = value_mg_cell
-        elif chigh-clow == 1:
+                for n in range(chigh - clow - 1):
+                    merge[(rlow, clow + n + 1)] = value_mg_cell
+        elif chigh - clow == 1:
             # Merge Vertical Cells
-            for n in range(rhigh-rlow-1):
-                merge[(rlow+n+1, clow)] = value_mg_cell
+            for n in range(rhigh - rlow - 1):
+                merge[(rlow + n + 1, clow)] = value_mg_cell
     for i in range(1, sheet_info.nrows):  # 开始为组成字典准备数据
         other_line = sheet_info.row_values(i)
         for key in merge.keys():
@@ -226,7 +226,6 @@ def merge_cell(operation_sheetname):
         dic = list_dic(first_line, other_line)  # 调用组合字典的函数，传入key和value，字典生成
         apply_dic.append(dic)
     return apply_dic
-
 
 
 if __name__ == '__main__':

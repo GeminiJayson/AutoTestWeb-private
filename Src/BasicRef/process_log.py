@@ -1,7 +1,8 @@
 import logging
-from logging import handlers
 # 日志输出
 import time
+from logging import handlers
+
 import Src.BasicRef.pathUtil as path
 
 
@@ -41,7 +42,8 @@ class Logger(object):
             self.logger.addHandler(fileHandler)
             self.logger.addHandler(self.streamHandler)
 
-    def M_info(self, i_line, str_actualResult, str_examinedField, str_expected_value, str_actualValue, str_stepResult, str_scriptNote):
+    def M_info(self, i_line, str_actualResult, str_examinedField, str_expected_value, str_actualValue, str_stepResult,
+               str_scriptNote):
         self.logger.info('【' + str(i_line) + '】===>' + str_actualResult)
         self.logger.info(str_examinedField)
         self.logger.info(str_expected_value)
@@ -54,6 +56,10 @@ class Logger(object):
         self.logger.debug(message)
 
     def info(self, message):
+        """
+
+        :rtype: object
+        """
         self.fontColor('\033[34m%s\033[0m')
         self.logger.info(message)
 

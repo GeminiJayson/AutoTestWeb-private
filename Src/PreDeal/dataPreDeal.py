@@ -32,7 +32,7 @@ class getAllData(object):
         self.initelementsinfoDic = ExcelDeal.merge_cell(self.elementsinfo_sheetname)
         self.initinputdataDic = ExcelDeal.merge_cell(self.inputdata_sheetname)
         self.initoutputdataDic = ExcelDeal.merge_cell(self.outputdata_sheetname)
-        #处理列表类数据，特点：单标识符对应多组数据
+        # 处理列表类数据，特点：单标识符对应多组数据
         index = 0
         inputdatesameDic = {}
         while index < len(self.initinputdataDic):
@@ -92,22 +92,28 @@ class getAllData(object):
 
         for index in range(len(self.initoutputdataDic)):
             self.outputdataDic.update({self.initoutputdataDic[index]["标识符"]:
-                self.initoutputdataDic[index]["输出数据"]})
+                                           self.initoutputdataDic[index]["输出数据"]})
         self.outputdataDic.update(outputdatasameDic)
 
     def checkIfExists(self, datatype, keyword):
         if datatype == "ElementsInfo":
-            if keyword in self.elementsinfoDic:
+            if keyword == "NA":
+                return "NA"
+            elif keyword in self.elementsinfoDic:
                 return self.elementsinfoDic[keyword]
             else:
                 raise Exception("要操作的元素不存在于配置表中，请检查！")
         if datatype == "InputData":
-            if keyword in self.inputdataDic:
+            if keyword == "NA":
+                return "NA"
+            elif keyword in self.inputdataDic:
                 return self.inputdataDic[keyword]
             else:
                 raise Exception("需求的输入数据不存在于配置表中，请检查！")
         if datatype == "OutputData":
-            if keyword in self.outputdataDic:
+            if keyword == "NA":
+                return "NA"
+            elif keyword in self.outputdataDic:
                 return self.outputdataDic[keyword]
             else:
                 raise Exception("需求的输出数据不存在于配置表中，请检查！")
